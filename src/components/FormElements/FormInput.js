@@ -2,8 +2,9 @@ import React from 'react';
 import withStyles from 'react-jss';
 import styles from './FormElements.styles';
 
-export const FormInput = ({classes, type, name, placeholder}) => <div className={classes.FormInputWrap}>
-    <input type={type} name={name} placeholder={placeholder} className={classes.FormInput} />
+export const FormInput = ({classes, type, name, placeholder, errorStatus, errorMsg, onChange, value}) => <div className={classes.FormInputWrap}>
+    <input type={type} name={name} placeholder={placeholder} className={classes.FormInput} onChange={onChange} value={value} />
+    {errorStatus && <span className={classes.errorMsg}>{errorMsg}</span>}
 </div>;
 
 export default withStyles(styles)(FormInput);

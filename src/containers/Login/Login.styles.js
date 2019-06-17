@@ -5,6 +5,10 @@ export default {
       flexWrap: 'wrap',
       alignItems: 'flex-start',
       flexDirection: 'column',
+      margin: '50px auto',
     },
+    loginForm: {
+        width: '100%',
+    }
   };
   
