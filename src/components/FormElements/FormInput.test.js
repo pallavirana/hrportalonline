@@ -4,8 +4,13 @@ import { FormInput } from "./FormInput";
 
 
 describe('FormInput component', () => {
+    const onChange = jest.fn();
+    const wrapper = shallow(<FormInput classes={{}} onChange={onChange} />);
     it('shallow renders without crashing', () => {
-      const wrapper = shallow(<FormInput classes={{}} />);
       expect(wrapper).toMatchSnapshot();
+    });
+    it('input change the value', () => {
+      wrapper.find('input').simulate('change')
+      expect(onChange).toHaveBeenCalled();
     });
   });

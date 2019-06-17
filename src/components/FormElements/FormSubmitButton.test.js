@@ -4,8 +4,8 @@ import { FormSubmitButton } from "./FormSubmitButton";
 
 
 describe('FormSubmitButton component', () => {
+    const wrapper = shallow(<FormSubmitButton classes={{}} />);
     it('shallow renders without crashing', () => {
-      const wrapper = shallow(<FormSubmitButton classes={{}} />);
       expect(wrapper).toMatchSnapshot();
     });
   });
