@@ -4,7 +4,8 @@ import withStyles from 'react-jss';
 import { Formik } from "formik";
 import * as yup from 'yup'
 import styles from './Login.styles';
-import {FormInput, FormSubmitButton, SuccessMsgBlock} from '../../components/FormElements';
+import { withFirebase } from '../../utils/Firebase';
+import {FormInput, FormSubmitButton} from '../../components/FormElements';
 
 const userSchema = yup.object().shape({
     email: yup
@@ -23,18 +24,32 @@ const initialState = {
     password: ""
   };
 
-export const Login = (props) => { 
+export const LoginForm = (props) => { 
     const { classes} = props;
     const [user, setUser] = useState(initialState);
+    const loginSubmit = (values) => {
+       console.log(values.email, values.password);
+        props.firebase
+        .doSignInWithEmailAndPassword(values.email, values.password)
+        .then(authUser => {
+            setUser(initialState);
+            this.props.history.push('/home');
+        })
+        .catch(error => {
+            console.log("error")
+        });
+
+       console.log("test")
+      };
     return (
     <div className={classes.loginWrap}>
-        {user.email && <SuccessMsgBlock msg={`${user.email} loggedin succesfully`} />}
+        
         <Formik
             initialValues={user}
             onSubmit={(values, actions) => {
-            console.log(values);
             actions.setSubmitting(true);
             setUser(values);
+            loginSubmit(values);
             setTimeout(() => {
                 actions.resetForm(initialState);
                 actions.setSubmitting(false);
@@ -73,4 +88,4 @@ export const Login = (props) => {
     </div>
 )};
 
-export default withStyles(styles)(Login);
+export default withFirebase(withStyles(styles)(LoginForm));
